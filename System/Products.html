@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Smart Grocery Shopping in Addis</title>
+    <link rel="icon" href="./Image/icon.ico" type="image/x-icon">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #056D30;
+            --primary-light: #E8F5E9;
+            --primary-dark: #034D21;
+            --secondary: #F0B429;
+            --secondary-light: #FFF8E1;
+            --secondary-dark: #F57F17;
+            --error: #C12A2A;
+            --success: #2E7D32;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --background: #FFFFFF;
+            --background-light: #FAFAFA;
+            --background-dark: #F5F5F5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 20px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --border-radius-2xl: 24px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+            --spacing-3xl: 64px;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html[dir="rtl"] {
+            font-family: 'Abyssinica SIL', serif;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--background-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-xl);
+        }
+
+        .section {
+            padding: var(--spacing-3xl) 0;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: var(--spacing-md) auto 0;
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: var(--spacing-md) 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: var(--spacing-sm) 0;
+            background-color: rgba(5, 109, 48, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+
+        .nav-item {
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item:hover {
+            color: var(--secondary-light);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1001;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: relative;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-sm);
+            min-width: 150px;
+            display: none;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .language-switcher:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: all 0.2s ease;
+        }
+
+        .language-option:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('./Images/Image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: var(--spacing-3xl) 0;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, var(--background-light), transparent);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-2xl);
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-bar {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            background: white;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: var(--spacing-lg);
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .search-button {
+            background-color: var(--secondary);
+            color: var(--text-primary);
+            padding: 0 var(--spacing-xl);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .search-button:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        /* Featured Categories */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .category-content {
+            padding: var(--spacing-lg);
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+        }
+
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Price Comparison Section */
+        .price-comparison {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-comparison::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .comparison-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .view-all {
+            color: var(--primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+
+        .view-all:hover {
+            color: var(--primary-dark);
+            gap: var(--spacing-sm);
+        }
+
+        .shops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .shop-card {
+            background: white;
+            border: 1px solid var(--background-dark);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+        }
+
+        .shop-logo-container {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .shop-logo {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .shop-name {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .shop-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+            color: var(--secondary-dark);
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: var(--spacing-md) 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .price-currency {
+            font-size: 1rem;
+            margin-top: 4px;
+            margin-right: 2px;
+        }
+
+        .delivery {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .delivery-icon {
+            color: var(--primary);
+        }
+
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .best-deal-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+            z-index: 2;
+        }
+
+        .best-deal-badge::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            animation-delay: 0.5s;
+            z-index: 1;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(rgba(5, 109, 48, 0.9), rgba(5, 109, 48, 0.9)), 
+                        url('images/testimonial-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+        }
+
+        .testimonial-slider {
+            max-width: 1000px;
+            margin: var(--spacing-2xl) auto 0;
+            padding: 0 var(--spacing-md);
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-2xl);
+            margin: var(--spacing-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .author-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .author-role {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Featured Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            background: var(--secondary);
+            color: var(--text-primary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .product-image-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-content {
+            padding: var(--spacing-lg);
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: var(--spacing-md);
+        }
+
+        .price-current {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .product-discount {
+            background: var(--error);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+
+        .product-btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .product-btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .product-btn-secondary {
+            background-color: var(--background-dark);
+            color: var(--text-primary);
+        }
+
+        .product-btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* How It Works */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-2xl);
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-light);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 200px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-3xl) 0;
+            text-align: center;
+            border-radius: var(--border-radius-xl);
+            margin: var(--spacing-3xl) auto;
+            max-width: 1200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .newsletter::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .newsletter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-subtitle {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-button {
+            background-color: var(--secondary);
+            color: var(--text-primary);
+            padding: 0 var(--spacing-xl);
+            font-weight: 600;
+            border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: var(--spacing-3xl) 0 0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            margin-bottom: var(--spacing-sm);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-link:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .footer-about p {
+            margin-bottom: var(--spacing-md);
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--secondary);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .mobile-nav-item {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--background-dark);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .mobile-menu-footer {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid var(--background-dark);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Products Page Specific Styles */
+        .products-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .products-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .products-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .products-search-container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            margin-top: -30px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            z-index: 10;
+        }
+
+        .products-search-box {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .products-search-input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid var(--background-dark);
+            border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+            font-size: 1rem;
+        }
+
+        .products-search-button {
+            padding: 15px 25px;
+            background-color: var(--secondary);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .products-search-button:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .products-language-selector {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .products-language-btn {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: var(--background-dark);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .products-language-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .products-content {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .products-section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .products-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: 30px;
+        }
+
+        .products-category-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .products-category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .products-category-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .products-category-content {
+            padding: 20px;
+        }
+
+        .products-category-title {
+            margin: 10px 0 5px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .products-category-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .products-filter-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .products-filter-select, .products-filter-input {
+            padding: 10px 15px;
+            border: 1px solid var(--background-dark);
+            border-radius: var(--border-radius-sm);
+            background: white;
+        }
+
+        .products-footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--primary-dark);
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .steps {
+                flex-wrap: wrap;
+                gap: var(--spacing-2xl);
+                justify-content: center;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+            
+            .step {
+                max-width: 45%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .shop-card {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-items {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                border-radius: var(--border-radius-lg);
+            }
+            
+            .search-input {
+                border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+                padding: var(--spacing-md);
+            }
+            
+            .search-button {
+                border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+                padding: var(--spacing-md);
+            }
+            
+            .step {
+                max-width: 100%;
+                margin-bottom: var(--spacing-xl);
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            }
+            
+            .newsletter-button {
+                border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+                padding: var(--spacing-md);
+            }
+
+            .products-search-box {
+                flex-direction: column;
+            }
+
+            .products-search-input {
+                border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+            }
+
+            .products-search-button {
+                border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                min-height: auto;
+                padding: var(--spacing-2xl) 0;
+            }
+            
+            .section {
+                padding: var(--spacing-2xl) 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+            
+            .logo-text {
+                display: none;
+            }
+
+            .products-header h1 {
+                font-size: 2rem;
+            }
+
+            .products-header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛒</span>
+                <span class="logo-text">አስቤዛ 365</span>
+            </a>
+            
+            <nav class="nav-items">
+                <a href="../index.html" class="nav-item">Home</a>
+                <a href="../System/Shops.html" class="nav-item">Shops</a>
+                <a href="./Products.html" class="nav-item">Products</a>
+                <a href="deals.html" class="nav-item">Deals</a>
+                <a href="../System/About.html" class="nav-item">About</a>
+                <a href="contact.html" class="nav-item">Contact</a>
+            </nav>
+            
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button class="language-btn">
+                        <span class="language-flag">🇬🇧</span>
+                        <span>EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown">
+                        <div class="language-option" data-lang="en">🇬🇧 English</div>
+                        <div class="language-option" data-lang="am">🇪🇹 አማርኛ</div>
+                        <div class="language-option" data-lang="om">🇪🇹 Afaan Oromoo</div>
+                        <div class="language-option" data-lang="ti">🇪🇹 ትግርኛ</div>
+                    </div>
+                </div>
+                
+                <a href="cart.html" class="nav-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+                
+                <a href="../System/Login.html" class="auth-button">Login</a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <span class="logo-icon">🛒</span>
+                <span class="logo-text">Asbeza365</span>
+            </div>
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav-items">
+            <a href="index.html" class="mobile-nav-item">Home</a>
+            <a href="shops.html" class="mobile-nav-item">Shops</a>
+            <a href="products.html" class="mobile-nav-item">Products</a>
+            <a href="deals.html" class="mobile-nav-item">Deals</a>
+            <a href="about.html" class="mobile-nav-item">About</a>
+            <a href="contact.html" class="mobile-nav-item">Contact</a>
+        </nav>
+        
+        <div class="mobile-menu-footer">
+            <div class="language-switcher">
+                <button class="language-btn" style="width: 100%; justify-content: center;">
+                    <span class="language-flag">🇬🇧</span>
+                    <span>English</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-dropdown" style="position: relative; top: 0; right: auto; width: 100%; margin-top: var(--spacing-sm);">
+                    <div class="language-option" data-lang="en">🇬🇧 English</div>
+                    <div class="language-option" data-lang="am">🇪🇹 አማርኛ</div>
+                    <div class="language-option" data-lang="om">🇪🇹 Afaan Oromoo</div>
+                    <div class="language-option" data-lang="ti">🇪🇹 ትግርኛ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Page Content -->
+    <div class="products-header">
+        <h1 id="main-title">Smart Grocery Shopping in Addis</h1>
+        <p id="subtitle">Compare prices from all major supermarkets and save up to 30% on your monthly grocery bill</p>
+    </div>
+
+    <div class="products-search-container">
+        <div class="products-search-box">
+            <input type="text" id="search-placeholder" class="products-search-input" placeholder="Search for products, shops, categories...">
+            <button id="search-button" class="products-search-button">Search</button>
+        </div>
+    </div>
+
+    <div class="products-language-selector">
+        <button onclick="changeLanguage('en')" class="products-language-btn active">English</button>
+        <button onclick="changeLanguage('am')" class="products-language-btn">አማርኛ</button>
+        <button onclick="changeLanguage('om')" class="products-language-btn">Afaan Oromoo</button>
+        <button onclick="changeLanguage('ti')" class="products-language-btn">ትግርኛ</button>
+    </div>
+
+    <div class="products-content">
+        <div id="en-content" class="language-content active">
+            <h2 class="products-section-title">Product Categories</h2>
+            <p>Browse and compare prices across different product categories in Addis Ababa supermarkets.</p>
+            
+            <div class="products-filter-container">
+                <select class="products-filter-select">
+                    <option>All Categories</option>
+                    <option>Staples & Grains</option>
+                    <option>Dairy</option>
+                    <option>Meat</option>
+                    <option>Vegetables</option>
+                </select>
+                <input type="text" class="products-filter-input" placeholder="Search products...">
+            </div>
+            
+            <div class="products-category-grid">
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Staples+Grains" alt="Staples & Grains" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Staples & Grains</h3>
+                        <p class="products-category-description">Compare prices for rice, wheat, teff, barley and other staple foods</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Dairy" alt="Dairy" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Dairy</h3>
+                        <p class="products-category-description">Milk, cheese, yogurt, butter and other dairy products</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Milk and Dairy.PNG" alt="Dairy & Eggs" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Dairy & Eggs</h3>
+                        <p class="products-category-description">All dairy products plus fresh eggs from different brands</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="Meat" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Meat</h3>
+                        <p class="products-category-description">Beef, lamb, goat and other meat products</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="Meat & Poultry" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Meat & Poultry</h3>
+                        <p class="products-category-description">All meat products plus chicken and other poultry</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="Vegetables" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Vegetables</h3>
+                        <p class="products-category-description">Fresh local and imported vegetables</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="Fruits & Vegetables" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Fruits & Vegetables</h3>
+                        <p class="products-category-description">Complete selection of fresh fruits and vegetables</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="am-content" class="language-content">
+            <h2 class="products-section-title">የምርት ምድቦች</h2>
+            <p>በአዲስ አበባ ውስጥ በተለያዩ ሱፐርማርኬቶች ውስጥ ያሉ የምርት ምድቦችን ዋጋ ያወዳድሩ።</p>
+            
+            <div class="products-filter-container">
+                <select class="products-filter-select">
+                    <option>ሁሉም ምድቦች</option>
+                    <option>መሰል �ምርቶች እና እህሎች</option>
+                    <option>የወተት ምርቶች</option>
+                    <option>ሥጋ</option>
+                    <option>አትክልቶች</option>
+                </select>
+                <input type="text" class="products-filter-input" placeholder="ምርቶችን ፈልግ...">
+            </div>
+            
+            <div class="products-category-grid">
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Staples+Grains" alt="መሰል ምርቶች እና እህሎች" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">መሰል ምርቶች እና እህሎች</h3>
+                        <p class="products-category-description">ሩዝ፣ ስንዴ፣ ጤፍ፣ ገብስ እና ሌሎች መሰል ምርቶች ዋጋ ያወዳድሩ</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Milk and Dairy.PNG" alt="የወተት ምርቶች" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">የወተት ምርቶች</h3>
+                        <p class="products-category-description">ወተት፣ አይብ፣ ጎም፣ ቅቤ እና ሌሎች የወተት ምርቶች</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Milk and Dairy.PNG" alt="የወተት ምርቶች እና እንቁላል" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">የወተት ምርቶች እና እንቁላል</h3>
+                        <p class="products-category-description">ሁሉም የወተት ምርቶች እና ከተለያዩ ብራንዶች የሚመነጩ ትኩስ እንቁላሎች</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="ሥጋ" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ሥጋ</h3>
+                        <p class="products-category-description">የበሬ፣ የበግ፣ የፍየል እና ሌሎች የሥጋ ምርቶች</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="ሥጋ እና የዶሮ ሥጋ" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ሥጋ እና የዶሮ ሥጋ</h3>
+                        <p class="products-category-description">ሁሉም የሥጋ ምርቶች እና የዶሮ እና ሌሎች የእንስሳት ሥጋ</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="አትክልቶች" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">አትክልቶች</h3>
+                        <p class="products-category-description">ትኩስ የአገር ውስጥ እና የውጭ አትክልቶች</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="ፍራፍሬዎች እና አትክልቶች" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ፍራፍሬዎች እና አትክልቶች</h3>
+                        <p class="products-category-description">ትኩስ ፍራፍሬዎች እና አትክልቶች ሙሉ ምርጫ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="om-content" class="language-content">
+            <h2 class="products-section-title">Gareewwan Wantootaa</h2>
+            <p>Gareewwan wantootaa dukaanota gurguddoo Addis Ababaa keessatti argaman irraa gatii walitti qabsiisaa.</p>
+            
+            <div class="products-filter-container">
+                <select class="products-filter-select">
+                    <option>Gareewwan Hunda</option>
+                    <option>Mallattoo fi Qamadii</option>
+                    <option>Aannanii</option>
+                    <option>Foon</option>
+                    <option>Mukaallaawaa</option>
+                </select>
+                <input type="text" class="products-filter-input" placeholder="Wantoota barbaadi...">
+            </div>
+            
+            <div class="products-category-grid">
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Staples+Grains" alt="Mallattoo fi Qamadii" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Mallattoo fi Qamadii</h3>
+                        <p class="products-category-description">Ruuzii, qamadii, taffii, garbuu fi mallattoo kkf gatii walitti qabsiisaa</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Dairy" alt="Aannanii" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Aannanii</h3>
+                        <p class="products-category-description">Aannan, qeese, yogiirtii, dhadhaa fi aannanii kkf</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Milk and Dairy.PNG" alt="Aannanii fi Hanqaaquu" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Aannanii fi Hanqaaquu</h3>
+                        <p class="products-category-description">Aannanii hunda fi hanqaaquu adda addaa</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="Foon" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Foon</h3>
+                        <p class="products-category-description">Foon sa'a, foon hoolaa, foon re'ee fi kkf</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="Foon fi Foon Loonii" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Foon fi Foon Loonii</h3>
+                        <p class="products-category-description">Foon hunda fi foon loonii</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="Mukaallaawaa" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Mukaallaawaa</h3>
+                        <p class="products-category-description">Mukaallaawaa qulqulluu biyyaa fi alaa</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="Fuduraalee fi Mukaallaawaa" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">Fuduraalee fi Mukaallaawaa</h3>
+                        <p class="products-category-description">Filannoo guutuu fuduraalee fi mukaallaawaa qulqulluu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ti-content" class="language-content">
+            <h2 class="products-section-title">ዓይነታት እታን</h2>
+            <p>ኣብ ኣዲስ ኣበባ ዘለዉ ሱፐርማርኬታት ዘለዎም ዓይነታት እታን ዋጋታት ኣነጻጽር።</p>
+            
+            <div class="products-filter-container">
+                <select class="products-filter-select">
+                    <option>ኩሉ ዓይነታት</option>
+                    <option>ዕምባባታትን እኽሊታትን</option>
+                    <option>ወተት እታን</option>
+                    <option>ስጋ</option>
+                    <option>ኣትክልቲ</option>
+                </select>
+                <input type="text" class="products-filter-input" placeholder="እታን ድለ...">
+            </div>
+            
+            <div class="products-category-grid">
+                <div class="products-category-card">
+                    <img src="https://via.placeholder.com/300x150?text=Staples+Grains" alt="ዕምባባታትን እኽሊታትን" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ዕምባባታትን እኽሊታትን</h3>
+                        <p class="products-category-description">ሩዝ፣ ስንዴ፣ ጤፍ፣ ገብስን ካልእ ዕምባባታት ዋጋ ኣነጻጽር</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="ወተት እታን" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ወተት እታን</h3>
+                        <p class="products-category-description">ወተት፣ ኣይብ፣ ጎም፣ ቅቤን ካልእ ወተት እታን</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Milk and Dairy.PNG" alt="ወተት እታንን እንቋል እታንን" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ወተት እታንን እንቋል እታንን</h3>
+                        <p class="products-category-description">ኩሉ ወተት እታንን ካብ ዝተፈላለየ ብራንድ ዝመጽእ እንቋል እታንን</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="ስጋ" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ስጋ</h3>
+                        <p class="products-category-description">በሬ፣ በግ፣ ፍየልን ካልእ ስጋታት</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Meat and Poultry.PNG" alt="ስጋን ደርሆን" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ስጋን ደርሆን</h3>
+                        <p class="products-category-description">ኩሉ ስጋታትን ደርሆን ካልእ ዑፍ ስጋታትን</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="ኣትክልቲ" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ኣትክልቲ</h3>
+                        <p class="products-category-description">ቅሩብ ናይ ኣገርን ወጻእን ኣትክልቲ</p>
+                    </div>
+                </div>
+                <div class="products-category-card">
+                    <img src="./Image/Fruits and Vegetables.PNG" alt="ፍረ ፍሬታትን ኣትክልቲን" class="products-category-image">
+                    <div class="products-category-content">
+                        <h3 class="products-category-title">ፍረ ፍሬታትን ኣትክልቲን</h3>
+                        <p class="products-category-description">ምሉእ ምርጫ ቅሩብ ፍረ ፍሬታትን ኣትክልቲን</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="products-footer">
+        <p>&copy; 2025 Smart Grocery Shopping in Addis. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function changeLanguage(lang) {
+            // Hide all language contents
+            document.querySelectorAll('.language-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected language content
+            document.getElementById(lang + '-content').classList.add('active');
+            
+            // Update active button
+            document.querySelectorAll('.products-language-btn').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update header text based on language
+            const titles = {
+                'en': {
+                    main: 'Smart Grocery Shopping in Addis',
+                    sub: 'Compare prices from all major supermarkets and save up to 30% on your monthly grocery bill',
+                    search: 'Search for products, shops, categories...'
+                },
+                'am': {
+                    main: 'በአዲስ አበባ ዘመናዊ የግራሴሪ ግዢ',
+                    sub: 'ከሁሉም ዋና ዋና ሱፐርማርኬቶች ዋጋ ያወዳድሩ እና በወርሃዊ የግራሴሪ ወጪዎ እስከ 30% ይቆጥቡ',
+                    search: 'ምርቶችን፣ ሱቆችን፣ ምድቦችን ፈልግ...'
+                },
+                'om': {
+                    main: 'Smart Grocery Shopping Addis Ababaa Keessatti',
+                    sub: 'Gatii dukaanota gurguddoo hunda walitti qabsiisaa waggaa 30% qarshii bitaa bilisummaa keessaa qusachiisi',
+                    search: 'Wantoota, dukaanota, gareewwan barbaadi...'
+                },
+                'ti': {
+                    main: 'ኣብ ኣዲስ ኣበባ ሜዳ ዕዳጋ ምግቢ',
+                    sub: 'ካብ ኵሎም ቀንዲ ዕዳጋታት ዋጋታት ኣነጻጽር እሞ ኣብ ወርሓዊ ዕዳጋኻ ክሳብ 30% ገንዘብ ዓቕር',
+                    search: 'ዕቑባት ምግቢ፣ ዕዳጋታት፣ ዓይነታት ድለ...'
+                }
+            };
+            
+            document.getElementById('main-title').textContent = titles[lang].main;
+            document.getElementById('subtitle').textContent = titles[lang].sub;
+            document.getElementById('search-placeholder').placeholder = titles[lang].search;
+        }
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.body.appendChild(overlay);
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            overlay.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            overlay.classList.remove('active');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
